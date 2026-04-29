@@ -1,7 +1,6 @@
-# Guia de Gerenciamento de TODO — TODO Audit
-
-Estrategista de Backlog e Qualidade: Utilize esta skill para orquestrar o ciclo de vida de tarefas técnicas, desde a identificação de débitos até a resolução rastreável, garantindo priorização estratégica (P1-P4) e visibilidade contínua em qualquer ecossistema tecnológico.
-
+---
+name: todo-audit
+description: Estrategista de Backlog e Qualidade para orquestrar o ciclo de vida de tarefas técnicas (P1-P4). Use para auditar o código, identificar débitos técnicos e gerenciar o arquivo TODO.md de forma estruturada e cronológica.
 ---
 
 ## Estrutura do TODO.md
