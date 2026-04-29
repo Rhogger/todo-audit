@@ -1,180 +1,102 @@
-# TODO Guide — Template de Auditoria de Qualidade
+# Guia de Gerenciamento de TODO — TODO Audit
 
-Use este skill sempre que o usuário pedir para criar, atualizar ou revisar o `TODO.md` de auditoria de qualidade do projeto.
+Estrategista de Backlog e Qualidade: Utilize esta skill para orquestrar o ciclo de vida de tarefas técnicas, desde a identificação de débitos até a resolução rastreável, garantindo priorização estratégica (P1-P4) e visibilidade contínua em qualquer ecossistema tecnológico.
 
 ---
 
 ## Estrutura do TODO.md
 
-O arquivo `TODO.md` deste projeto segue um formato fixo. Respeite rigorosamente esta estrutura.
+O arquivo `TODO.md` deve seguir uma estrutura limpa, hierárquica por prioridade e organizada cronologicamente.
 
-### Cabeçalho (comentado — não renderizado)
-
-```markdown
-<!-- # Refatoração — Backlog de Qualidade
-
-| ID | Nível | Descrição | Arquivo | Skills | Status |
-|:--:|:-----:|:----------|:--------|:-------|:------:|
-
---- -->
-```
-
-> Este bloco existe por compatibilidade com um backlog tabular anterior. Mantenha-o comentado, não o remova.
-
----
-
-### Seção de Auditoria
+### Cabeçalho Informativo
 
 ```markdown
-# Auditoria de Qualidade — React & TypeScript
+# Backlog de Desenvolvimento e Qualidade
 
-> Gerado em YYYY-MM-DD. Apenas arquivos de produção (não-teste) auditados.
-> Categorias: **[REACT]** padrões React · **[TS]** TypeScript · **[QUALITY]** qualidade geral · **[DEPRECATED]** recurso sem uso/órfão
-> Severidades: 🔴 HIGH · 🟡 MEDIUM · 🟢 LOW
+> Última atualização: YYYY-MM-DD
+> Escala de Prioridade: **P1** (Crítico) · **P2** (Importante) · **P3** (Melhoria) · **P4** (Exploração)
 
 ---
 ```
 
-Atualize a data sempre que gerar uma nova auditoria completa.
+---
+
+## Blocos de Prioridade
+
+As tarefas devem ser agrupadas nos seguintes blocos, do mais urgente para o menos urgente:
+
+### `## 🔴 P1 — Crítico (Impacto Imediato)`
+*   **Critério**: Bugs impeditivos (blockers), falhas graves de segurança (SQLi, vazamentos), erros que causam crash ou requisitos obrigatórios para o release imediato.
+
+### `## 🟡 P2 — Importante (Próximos passos)`
+*   **Critério**: Funcionalidades core, dívida técnica que atrasa a equipe, problemas de UX significativos ou falta de estabilidade em fluxos principais.
+
+### `## 🟢 P3 — Melhoria (Quando conveniente)`
+*   **Critério**: Refatorações para legibilidade, otimizações de performance, melhorias de logs/telemetria ou modernização de libs não críticas.
+
+### `## 🔵 P4 — Exploração / Backlog (Futuro)`
+*   **Critério**: Ideias de novas features, prototipagem, experimentos de arquitetura ou tarefas "nice-to-have".
 
 ---
 
-### Blocos de severidade
+## Organização por Data e Tags
 
-Cada severidade tem seu próprio bloco `##`:
+Dentro de cada bloco de prioridade, as tarefas são agrupadas pela **data da última manipulação** (criação ou atualização).
 
-```markdown
-## 🔴 HIGH — Crítico (resolver com prioridade)
+### Regra de Cabeçalho de Data:
+1. Ao manipular uma tarefa, verifique se existe o cabeçalho `#### YYYY-MM-DD` dentro do bloco de prioridade.
+2. Se existir, insira/atualize a tarefa sob ele.
+3. Se não existir, crie o cabeçalho `#### YYYY-MM-DD` no **topo** do bloco de prioridade e insira a tarefa.
 
-## 🟡 MEDIUM — Importante (resolver em breve)
-
-## 🟢 LOW — Melhoria (resolver quando conveniente)
-```
-
----
-
-### Formato de cada item
-
-Cada problema encontrado deve seguir este padrão dentro do bloco de severidade correspondente:
-
-```markdown
-### `caminho/relativo/ao/arquivo.ts` — Título curto do problema
-
-- **[CATEGORIA]** Linhas X–Y (se aplicável): descrição objetiva do problema. Explique o risco ou impacto.
-- **Ação**: o que deve ser feito para resolver. Uma ou duas frases, direto ao ponto.
-```
-
-**Categorias válidas:**
-
-| Tag | Quando usar |
-|-----|-------------|
-| `[REACT]` | Violações de padrões React: efeitos desnecessários, dependências erradas, cleanup ausente, re-renders evitáveis |
-| `[TS]` | Problemas TypeScript: `any`, type assertions sem guard, tipos frouxos, discriminated unions ausentes |
-| `[QUALITY]` | Qualidade geral: código duplicado, abstrações desnecessárias, strings hardcoded, inconsistências de estilo |
-| `[DEPRECATED]` | Recursos sem consumidores: exports mortos, hooks órfãos, arquivos não importados |
-
-**Regras de severidade:**
-
-| Nível | Critério |
-|-------|----------|
-| 🔴 HIGH | Risco real em produção: memory leak, loop infinito, crash silencioso, type assertion que mascara erro de runtime, arquivo completamente órfão |
-| 🟡 MEDIUM | Dívida técnica relevante: efeito com deps instáveis, estado com combinações inválidas, cast sem guard, código duplicado crítico |
-| 🟢 LOW | Melhorias de qualidade: inline handlers, `||` vs `??`, fragmentos desnecessários, nomes inconsistentes, `useMemo` redundante |
+### Sistema de Tags:
+Cada tarefa deve conter tags entre colchetes no início da descrição para facilitar a busca:
+- **Intuito**: `[BUG]`, `[FEATURE]`, `[REFACTOR]`, `[HOTFIX]`, `[BUILD]`, `[CICD]`, `[DOCS]`.
+- **Tecnologia**: `[TS]`, `[JS]`, `[REACT]`, `[VUE]`, `[RUBY]`, `[JAVA]`, `[DOCKER]`, etc.
+- **Exemplo**: `[BUG][REACT][TS]`
 
 ---
 
-### Como marcar itens como concluídos
-
-Quando uma tarefa é executada, **não delete o item e não remova o conteúdo original** — mantenha a descrição do problema e adicione uma linha `Resolução:` ao final:
+## Formato de Cada Item
 
 ```markdown
-### ~~`caminho/arquivo.ts` — Título do problema~~ ✅ CORRIGIDO
+### `contexto` — Título curto
 
-- **[CATEGORIA]** Linhas X–Y: descrição original do problema.
-- **Ação**: o que estava previsto para resolver.
-- **Resolução**: o que foi feito de fato.
-```
-
-Para itens deletados (DEPRECATED):
-
-```markdown
-### ~~`caminho/arquivo.ts`~~ ✅ DELETADO
-
-- **[DEPRECATED]** Descrição original do problema.
-- **Resolução**: motivo da remoção e o que foi excluído.
-```
-
-Para itens resolvidos indiretamente (como consequência de outra tarefa):
-
-```markdown
-### ~~`caminho/arquivo.ts` — Título~~ ✅ CORRIGIDO (junto com HIGH)
-
-- **[CATEGORIA]** Linhas X–Y: descrição original do problema.
-- **Ação**: o que estava previsto.
-- **Resolução**: resolvido como consequência de [outra tarefa]; o que foi feito.
-```
-
-Quando **todos os itens de um bloco** estiverem concluídos, atualize o título do bloco:
-
-```markdown
-## 🔴 HIGH — Crítico ✅ Todas concluídas
+#### YYYY-MM-DD
+- **Tags**: `[INTUITO][TECNOLOGIA]`
+- **Descrição**: O que é o problema ou a necessidade.
+- **Ação**: O que deve ser feito.
 ```
 
 ---
 
-### Exemplo de item pendente vs. concluído
+## Fluxo de Atualização (Lifecycle)
 
-**Pendente:**
+### 1. Adicionando/Atualizando Tarefas
+*   Mantenha a prioridade correta.
+*   Siga a regra do **Cabeçalho de Data** (sempre mova ou crie no topo da seção para destacar o que é novo).
+*   Garanta que as **Tags** identifiquem claramente o intuito e a stack.
+
+### 2. Marcando como Concluído
+Mantenha o histórico formatando o título com tachado e adicionando a resolução sob a data atual:
+
 ```markdown
-### `src/hooks/useAuthService.ts` — Double assertion sem guard
+### ~~`contexto` — Título da tarefa~~ ✅ CONCLUÍDO
 
-- **[TS]** Linha 43: `response.data as unknown as LoginResponse` não tem garantia em runtime.
-- **Ação**: criar type-guard `isLoginResponse(v: unknown): v is LoginResponse` e aplicá-lo antes de acessar `access_token`.
-```
-
-**Concluído:**
-```markdown
-### ~~`src/hooks/useAuthService.ts` — Double assertion sem guard~~ ✅ CORRIGIDO
-
-- **[TS]** Linha 43: `response.data as unknown as LoginResponse` não tem garantia em runtime.
-- **Ação**: criar type-guard `isLoginResponse(v: unknown): v is LoginResponse` e aplicá-lo antes de acessar `access_token`.
-- **Resolução**: adicionado type-guard `isLoginResponse` que valida `access_token` antes de acessar os campos.
+#### 2026-04-29 (Finalizado)
+- **Tags**: `[REFACTOR][TS]`
+- **Resolução**: Descrição técnica do que foi feito.
 ```
 
 ---
 
-## Manual de Uso — Quando gerar uma auditoria
+## Manual de Uso para a IA
 
-> **Importante**: o escopo da auditoria (quais pastas, quais tipos de problemas) é sempre definido pelo usuário. Não presuma categorias ou critérios — audite apenas o que foi solicitado.
-
-1. **Leia** todos os arquivos de produção (não-teste) das pastas solicitadas.
-2. **Classifique** cada problema em categoria `[REACT]`, `[TS]`, `[QUALITY]` ou `[DEPRECATED]`.
-3. **Atribua** severidade (HIGH / MEDIUM / LOW) com base nos critérios da tabela.
-4. **Escreva** os itens do mais crítico para o menos crítico dentro de cada bloco.
-5. **Inclua sempre** o caminho relativo do arquivo, linhas quando relevante, o impacto do problema e uma ação clara.
-6. **Nunca** execute código — apenas documente.
+1.  **Contextualização**: Sempre identifique o intuito e a tecnologia antes de registrar.
+2.  **Cronologia**: Se estiver atualizando uma tarefa antiga, mova-a para o bloco de data de hoje dentro da prioridade dela.
+3.  **Busca Otimizada**: Use as tags para agrupar logicamente suas ações quando estiver trabalhando em lote.
 
 ---
 
-## Manual de Atualização — Durante execução de tarefas
+## Prompt de Exemplo
 
-Siga estas regras ao trabalhar em tarefas do TODO:
-
-1. **Antes de começar** uma tarefa: anuncie no chat (em português) qual tarefa está sendo feita e o que será alterado.
-2. **Ao concluir** uma tarefa: marque o título com `~~strikethrough~~ ✅ CORRIGIDO/DELETADO` e adicione uma linha `Resolução:` **abaixo do conteúdo original** — não substitua o conteúdo.
-3. **Nunca delete** o texto original dos itens do TODO — mantenha a descrição do problema e a ação prevista visíveis para code review.
-4. **Se uma tarefa resolver itens adicionais** (ex.: corrigir um HIGH também resolve um MEDIUM): marque os extras com `✅ CORRIGIDO (junto com X)` e adicione a linha `Resolução:`.
-5. **Quando todos os itens de um bloco** estiverem concluídos: atualize o título do bloco com `✅ Todas concluídas`.
-6. **Atualize a data** no cabeçalho da seção de auditoria quando gerar uma nova auditoria completa.
-
----
-
-## Prompt base para solicitar nova auditoria
-
-Use este prompt quando quiser gerar uma nova auditoria completa:
-
-```
-Faça uma auditoria de qualidade nas pastas [lista de pastas], auditando APENAS os arquivos que não são testes.
-
-Documente tudo no TODO.md seguindo o template do skill `todo-guide`. Não execute nenhuma alteração de código — apenas documente.
-```
+> "Audite os arquivos de build. Adicione as falhas encontradas ao `TODO.md` como P1, usando tags de [BUILD] e [DOCKER], organizando pela data de hoje."
