@@ -3,6 +3,11 @@ name: todo-audit
 description: Estrategista de Backlog e Qualidade para orquestrar o ciclo de vida de tarefas técnicas (P1-P4). Use para auditar o código, identificar débitos técnicos e gerenciar o arquivo TODO.md de forma estruturada e cronológica.
 ---
 
+## Diretrizes de Operação
+
+- **Apenas Registro**: Esta skill deve apenas identificar e registrar tarefas. **NUNCA** tente corrigir o problema listado na tarefa a ser criada. O objetivo é puramente auditoria e gerenciamento do backlog.
+- **Título Obrigatório**: Nenhuma tarefa pode ser criada sem um título claro e conciso.
+
 ## Estrutura do TODO.md
 
 O arquivo `TODO.md` deve seguir uma estrutura limpa, hierárquica por prioridade e organizada cronologicamente.
